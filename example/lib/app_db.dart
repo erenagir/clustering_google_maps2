@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:io';
-import 'fake_point.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:synchronized/synchronized.dart';
+import 'fake_point.dart';
 
 class AppDatabase {
   static final AppDatabase _appDatabase = AppDatabase._internal();
