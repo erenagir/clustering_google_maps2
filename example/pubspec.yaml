@@ -1,0 +1,28 @@
+name: example
+description: A new Flutter application.
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  clustering_google_maps:
+    path: ../
+
+  cupertino_icons: ^1.0.5
+  path: ^1.8.3
+  sqflite: ^2.3.0
+  path_provider: ^2.0.14
+  synchronized: ^3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/map_point.json
