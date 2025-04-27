@@ -1,34 +1,34 @@
-import 'geohash.dart';
+import 'dart:math';
 import 'package:google_maps_flutter/google_maps_flutter.dart' show LatLng;
+import 'package:clustering_google_maps/geohash.dart';
 
-class FakePoint{
-  static final tblFakePoints = "fakePoints";
-  static final dbId = "id";
-  static final dbLat = "latitude";
-  static final dbLong = "longitude";
-  static final dbGeohash = "geohash";
+class FakePoint {
+  static const tblFakePoints = "fake_points";
+  static const dbId = "id";
+  static const dbGeohash = "geohash";
+  static const dbLat = "lat";
+  static const dbLong = "long";
 
-  LatLng location;
-  int id;
-  String geohash;
+  final LatLng location;
+  final String id;
+  late String geohash;
 
-  FakePoint({this.location, this.id}) {
-    this.geohash =
-        Geohash.encode(this.location.latitude, this.location.longitude);
+  FakePoint({required this.location, required this.id}) {
+    geohash = Geohash.encode(location.latitude, location.longitude);
   }
 
   FakePoint.fromMap(Map<String, dynamic> map)
-      : id = map[dbId],
-        location = LatLng(map[dbLat], map[dbLong]) {
-    this.geohash =
-        Geohash.encode(this.location.latitude, this.location.longitude);
+      : location = LatLng(map['lat'], map['long']),
+        id = map['id'] {
+    geohash = Geohash.encode(location.latitude, location.longitude);
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data[dbId] = this.id;
-    data[dbLat] = this.location.latitude;
-    data[dbLat] = this.location.longitude;
-    return data;
+  Map<String, dynamic> toMap() {
+    return {
+      dbId: id,
+      dbGeohash: geohash,
+      dbLat: location.latitude,
+      dbLong: location.longitude,
+    };
   }
 }
