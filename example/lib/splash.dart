@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:clustering_google_maps/clustering_google_maps.dart';
 
 class Splash extends StatefulWidget {
+  const Splash({Key? key}) : super(key: key);
+
   @override
   SplashState createState() {
     return SplashState();
@@ -12,7 +14,6 @@ class Splash extends StatefulWidget {
 
 class SplashState extends State<Splash> {
   final SplashBloc bloc = SplashBloc();
-
   bool loading = false;
 
   @override
@@ -27,8 +28,8 @@ class SplashState extends State<Splash> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            RaisedButton(
-              child: Text('Load Fake Data into Database'),
+            ElevatedButton(
+              child: const Text('Load Fake Data into Database'),
               onPressed: loading
                   ? null
                   : () async {
@@ -40,7 +41,7 @@ class SplashState extends State<Splash> {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomeScreen(),
+                            builder: (context) => const HomeScreen(),
                           ),
                         );
                         setState(() {
@@ -50,10 +51,14 @@ class SplashState extends State<Splash> {
                         showDialog(
                           context: context,
                           builder: (context) {
-                            return Column(
-                              children: <Widget>[
-                                Text('Error'),
-                                Text(e.toString()),
+                            return AlertDialog(
+                              title: const Text('Error'),
+                              content: Text(e.toString()),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: const Text('OK'),
+                                ),
                               ],
                             );
                           },
@@ -61,8 +66,9 @@ class SplashState extends State<Splash> {
                       }
                     },
             ),
-            RaisedButton(
-              child: Text('Load Fake Data into Memory'),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              child: const Text('Load Fake Data into Memory'),
               onPressed: loading
                   ? null
                   : () async {
@@ -85,10 +91,14 @@ class SplashState extends State<Splash> {
                         showDialog(
                           context: context,
                           builder: (context) {
-                            return Column(
-                              children: <Widget>[
-                                Text('Error'),
-                                Text(e.toString()),
+                            return AlertDialog(
+                              title: const Text('Error'),
+                              content: Text(e.toString()),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: const Text('OK'),
+                                ),
                               ],
                             );
                           },
@@ -96,7 +106,8 @@ class SplashState extends State<Splash> {
                       }
                     },
             ),
-            loading ? CircularProgressIndicator() : Container(),
+            const SizedBox(height: 20),
+            if (loading) const CircularProgressIndicator(),
           ],
         ),
       ),
